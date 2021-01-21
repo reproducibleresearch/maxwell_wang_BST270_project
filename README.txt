@@ -9,6 +9,7 @@ us-counties.csv lists the cumulative cases and deaths for each US county, for ea
 all-states-history.csv lists more specific data types, but we make use of the currentlyHospitalized variable, which 
 tracks the total current hospitalizations for each day, for each state.
 The max_wang_individual_project.Rmd is the RMarkdown code that processes the data and produces my code.
-This repository also contains the resulting pdf.
+
+This repository also contains the resulting pdf in max_wang_individual_project.pdf.
 
 To run the code, require the following libraries: ggplot2, tidyverse, stringr, zoo, lubridate, kableExtra, choroplethr, choroplethrMaps
