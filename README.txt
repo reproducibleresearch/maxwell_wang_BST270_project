@@ -15,4 +15,5 @@ Code:
 
 This repository also contains the resulting pdf in max_wang_individual_project.pdf.
 
-To run the code, require the following libraries: ggplot2, tidyverse, stringr, zoo, lubridate, kableExtra, choroplethr, choroplethrMaps
+To run the code, require the following libraries: ggplot2, tidyverse, stringr, zoo, lubridate, kableExtra, choroplethr, choroplethrMaps.
+Must CLONE this repository to properly obtain the data. Do not simply download the zip file.
