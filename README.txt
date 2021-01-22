@@ -24,4 +24,5 @@ This repository also contains the resulting pdf in max_wang_individual_project.p
 
 Instructions to reproduce pdf and figures:
   To run the code, require the following libraries: ggplot2, tidyverse, stringr, zoo, lubridate, kableExtra, choroplethr, choroplethrMaps.
+  Libraries were built under R version 4.0.3
   Must CLONE this repository to properly obtain the data. Do not simply download the zip file.
