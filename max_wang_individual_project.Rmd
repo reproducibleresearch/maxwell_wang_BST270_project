@@ -5,7 +5,7 @@ output:
   html_document: default
 ---
 
-In this project, we will attempt to reproduce the figures in the New York Times coronavirus map, for January 17, 2021.
+In this project, we will attempt to reproduce the figures in the New York Times coronavirus map, for January 17, 2021. We will also comment briefly on the reproducibility of these figures.
 First, we will load in the required libraries.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -70,7 +70,7 @@ ggplot(data = new_cases) +
 
 This plot we have reproduced looks pretty close to the plot in the NYT. We see that the pandemic starts a little before April, and that there are large bumps in late July, and a major ramp-up beginning around October. There are then a series of three sub-peaks between November and the present. The current trend is downwards, coming down from the highest point in early January. In addition, the "Total New Cases per Day" (the bar graph behind the red line graph) seems to follow the 7-day moving average quite closely, with some overshooting in the winter of 2020.
 
-In terms of reproducibility, this figure from the NYT seems readily reproducible, at least in terms of the general trends. The data was easy to access, with pretty intuitive variable names and organization structure. There is a bit of lack of clarity about how exactly 7-day running averages are calculated (right aligned or not), but I don't think this makes a large difference, since the running average usually doesn't change dramatically very quickly.
+In terms of reproducibility, this figure from the NYT seems readily reproducible, at least in terms of the general trends. The data was easy to access, with pretty intuitive variable names and organization structure in us-counties.csv. There is a bit of lack of clarity about how exactly 7-day running averages are calculated (right aligned or centered), but I don't think this makes a large difference, since the running average usually doesn't change dramatically very quickly, so the trends will look the same regardless of which formula we use.
 
 ## Table 2)
 
@@ -130,9 +130,9 @@ sprintf("14-day percent change in New Deaths: %f", diff_in_deaths*100)
 sprintf("Current Hospitalizations on January 17: %i", as.numeric(total_h[,2][363]))
 sprintf("14-day percent change in current hospitalizations: %f", diff_in_hos*100)
 ```
-Overall, this looks pretty reproducible, and we successfully were able to reproduce all the values in the figure. For Cases, there are about 24 million total, 169641 on January 17, and a 2.8% 14-day change. For Deaths, there are 397612 total, 1730 on January 17, and a 25.72% 14-day change. And for Current Hospitalizations, there are 124387 on January 17, and a 3.15% 14-day change. These correspond to pretty much the exact same values in Table 2.
+Overall, this looks pretty reproducible, and we successfully were able to reproduce all the values in the figure. For Cases, there are about 24 million total, 169641 on January 17, and a 2.8% 14-day change. For Deaths, there are 397612 total, 1730 on January 17, and a 25.72% 14-day change. And for Current Hospitalizations, there are 124387 on January 17, and a 3.15% 14-day change. These correspond to pretty much the exact same values in Table 2. The data was easy to access, though it may have been useful for the NYT to include the additonal hospitalization data in their github repository, so that we don't have to download it from another, separate website (of course, since that hospitalization data was not produced by the NYT, I'm not sure if there would have been ownership issues).
 
-There is one problem that can lead to confusion. In the chart, the 'On Jan 17' field for cases and deaths are the NEW cases and deaths occurring on January 17. However, for Hospitalizations, the 'On Jan 17' field is actually for all current hospitalizations on January 17, not just the new hospitalizations occurring on January 17. This also means that the 14-day change field has a different meaning depending on the row. For Cases and Deaths, the 14-day change is the change in new cases and deaths per day, over 14 days, but for Hospitalizations, the 14-day change is the change in total (not new) hospitalizations over 14 days. This can be pretty misleading, and is not actually stated in the figure. I would say this is a hindrance to reproducibility. 
+There is one problem that can lead to confusion. In the chart, the 'On Jan 17' field for cases and deaths are the NEW cases and deaths occurring on January 17. However, for Hospitalizations, the 'On Jan 17' field is actually for all current hospitalizations on January 17, not just the new hospitalizations occurring on January 17. This also means that the 14-day change field has a different meaning depending on the row. For Cases and Deaths, the 14-day change is the change in new cases and deaths per day, over 14 days, but for Hospitalizations, the 14-day change is the change in total (not new) hospitalizations over 14 days. This can be pretty misleading, and is not actually stated in the figure. I would say this is a hindrance to reproducibility, and that the published figure should have some additional information to clarify this difference.  
 
 
 ## Figure 3)
@@ -237,11 +237,11 @@ colnames(state_data) = c("state","total_cases","avg_new_cases")
 state_data
 ```
 
-It seems that our results are pretty much exactly what the NYT has on their graphic, for both the fields we looked at. For example, we can see that our table has California with 3006583 cases on January 17, and 39579.7 as the daily average in the past 7 days, which is exactly what the NYT has too. This Table seems quite reproducible to me; the data was readily available, and the results were pretty easy to calculate once I knew what I was looking for. I used the us-counties.csv data from the NYT github repository, but this process is actually much easier if you used their us-states.csv (and the results are the same).
+It seems that our results are pretty much exactly what the NYT has on their graphic, for both the fields we looked at. For example, we can see that our table has California with 3006583 cases on January 17, and 39579.7 as the daily average in the past 7 days, which is exactly what the NYT has too. This Table seems quite reproducible to me; the data was readily available, and the results were pretty easy to calculate once I knew what I was looking for, since we're mostly just taking a sum over all the cases in each state, and then a 7-day average in new cases. Since the formula for these calculations is relatively simple, I was able to figure them out myself, but I think for more complex calculations, code should be included so that we can see exactly what is being calculated for these values. I used the us-counties.csv data from the NYT github repository, but this process is actually much easier if you used their us-states.csv (and the results turn out to be the same). 
 
 ## Conclusion
 
-Overall, I would say that the NYT figures are quite reproducible. The data is pretty accessible for the most part, and while there are a few parts that might have been a bit vague (such as the calculation of 7-day averages), most of the calculations are simple enough that I was able to reproduce them without too much of an issue. For the tables (2 and 4), I was able to reproduce the values pretty much exactly. For the figures (1 and 3), the overall trends matched very well. I would personally give the reproducibility of this article an A grade.
+Overall, I would say that the NYT figures are quite reproducible. The data is pretty accessible for the most part, and while there are a few parts that might have been a bit vague (such as the calculation of 7-day averages), most of the calculations are simple enough that I was able to reproduce them without too much of an issue. The organization of the data was also quite reasonable, with self-explanatory variable names. For the tables (2 and 4), I was able to reproduce the values pretty much exactly. For the figures (1 and 3), the overall trends matched very well. In general, most of the figures and values here were easy to calculate (averages, differences in averages, etc.), so we really didn't need any additional code/explanation to create these figures. I would personally give the reproducibility of this article an A grade, since the reproduction of these figures seems quite intuive and easy. 
 
 
 
